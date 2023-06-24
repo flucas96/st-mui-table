@@ -5,12 +5,12 @@ with open('README.md') as f:
     long_desc = f.read()
 
 setuptools.setup(
-    name="st_ant_carousel",
-    version="0.0.3",
+    name="st_mui_table",
+    version="0.0.1",
     author="",
     author_email="",
     setup_requires=['wheel'],
-    description="Streamlit Component for ANT Carousel",
+    description="Streamlit Component for Material UI Table",
     long_description=long_desc,
     long_description_content_type='text/markdown',
     # url="https://github.com/flucas96/st_ant_tree",
