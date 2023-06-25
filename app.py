@@ -33,10 +33,10 @@ customCss = """
     }
 """
 
-col_size = st.slider("Column Size", 0.1, 12.5, 0.1)
+col_size = st.slider("Column Size", 6.1, 12.5, 0.5)
 col1, col2 = st.columns((col_size,1))
 
 with col1:
-    st_mui_table(df, enablePagination=True,  paginationSizes = [5,10,25], detailColumns=["E","B","D"], detailColNum=2,minRowHeight=1000)
+    st_mui_table(df, enablePagination=True,  paginationSizes = [3,5,10,25], detailColumns=["E","B","D"], detailColNum=2,minRowHeight=1000)
 
 st.write("test")
