@@ -31,6 +31,6 @@ customCss = """
         border: 1px solid red;
     }
 """
-st_mui_table(df, enablePagination=True,  paginationSizes = [5,10,25], additionalColumns=["E","B"])
+st_mui_table(df, enablePagination=True,  paginationSizes = [5,10,25], detailColumns=["E","B"])
 
 st.write("test")
