@@ -102,9 +102,8 @@ with col_right:
         skiplast = st.checkbox("**Skip to last Page Button**", value=True)
     pagination_label = st.text_input("**Pagination Label**", value="Rows per page",disabled= not pagination)
     minHeight = st.number_input("**Min Height**", value=200)
-    max_heigth = st.number_input("**Max Height**", value=400)
+    maxHeight = st.number_input("**Max Height**", value=400)
 
-    maxHeight = max_heigth
 
 
     size = st.selectbox("**Size**", ["small", "medium"], index=1)
