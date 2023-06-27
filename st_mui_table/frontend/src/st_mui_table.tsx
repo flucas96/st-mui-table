@@ -5,6 +5,8 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 
 interface TableState {
@@ -24,7 +26,8 @@ function chunkArray<T>(originalArray: T[], chunkSize: number): T[][] {
 const TableComponent = (props: ComponentProps) => {
 
   const { content, customCss, enablePagination, size, padding, showHeaders, paginationSizes, stickyHeader, paperStyle, detailColumns,detailColNum,
-    detailsHeader,showIndex  } = props.args;  // Python Args
+    detailsHeader,showIndex, maxHeight,minHeight, paginationLabel, showFirstButtonPagination, showLastButtonPagination   } = props.args;  // Python Args
+
   const [state, setState] = React.useState<TableState>({
     page: 0,
     rowsPerPage: paginationSizes[0],  // Set the default rowsPerPage to the first value in the list of options
@@ -54,7 +57,6 @@ const TableComponent = (props: ComponentProps) => {
 const startRow = state.page * state.rowsPerPage;
 const endRow = startRow + state.rowsPerPage;
 const currentPageContent = content.slice(startRow, endRow);
-
 
 const [shouldUpdateHeight, setShouldUpdateHeight] = React.useState(false);
 
@@ -87,12 +89,18 @@ useEffect(() => {
   }
 }, []);
 
-const tableRef = React.useRef<HTMLDivElement>(null);
+
+
+const tableStyle = {
+  maxHeight: maxHeight ? `${maxHeight}px` : undefined,
+  minHeight: minHeight ? `${minHeight}px` : undefined,
+  overflow: 'auto'
+};const tableRef = React.useRef<HTMLDivElement>(null);
 return (
   <>
     <style dangerouslySetInnerHTML={{__html: customCss}}></style>
     <Paper sx={paperStyle}>
-      <TableContainer ref={tableRef}>
+      <TableContainer ref={tableRef} style={tableStyle}>
         <Table stickyHeader={stickyHeader} aria-label="sticky table" size={size}>
           {showHeaders && (
             <TableHead>
@@ -188,6 +196,9 @@ return (
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           component="div"
+          labelRowsPerPage = {paginationLabel}
+          showFirstButton = {showFirstButtonPagination}
+          showLastButton = {showLastButtonPagination}
         />
       )}
     </Paper>
