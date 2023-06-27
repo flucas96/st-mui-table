@@ -95,17 +95,38 @@ col_left, col_right = st.columns((1,1))
 with col_right:
 
     pagination = st.checkbox("**Enable Pagination**", value=True)
+    col1, col2 = st.columns((1,1))
+    with col1:
+        skipfirst = st.checkbox("**Skip to first Page Button**", value=True)
+    with col2:
+        skiplast = st.checkbox("**Skip to last Page Button**", value=True)
+    pagination_label = st.text_input("**Pagination Label**", value="Rows per page",disabled= not pagination)
+    minHeight = st.number_input("**Min Height**", value=200)
+    max_heigth = st.number_input("**Max Height**", value=400, disabled=pagination)
+    themes = st.selectbox("**Theme**", ["", "streamlit"], index=0)
+    if pagination:
+        maxHeight = None
+    else:
+        maxHeight = max_heigth
+
+    if themes == "":
+        theme = {}
+    else:
+        theme = "streamlit"
+
     size = st.selectbox("**Size**", ["small", "medium"], index=1)
     padding = st.selectbox("**Padding**", ["normal", "checkbox", "none"], index=0)
     showHeaders = st.checkbox("**Show Headers**", value=True)
     stickyHeader = st.checkbox("**Sticky Header**", value=True)
 
     st.code(f"""
-    st_mui_table(df2,key="table3", enablePagination={pagination}, size={size}, padding={padding}, showHeaders={showHeaders}, stickyHeader={stickyHeader})
+    st_mui_table(df2,key="table3", enablePagination={pagination}, size={size}, padding={padding}, showHeaders={showHeaders}, stickyHeader={stickyHeader}, maxHeight={maxHeight},
+                 minHeight={minHeight}, paginationLabel={pagination_label}, showLastButtonPagination={skiplast}, showFirstButtonPagination={skipfirst}, theme={theme})
     """, language="python")
 
 with col_left:
-    st_mui_table(df2,key="table3", enablePagination=pagination, size=size, padding=padding, showHeaders=showHeaders, stickyHeader=stickyHeader)
+    st_mui_table(df2,key="table3", enablePagination=pagination, size=size, padding=padding, showHeaders=showHeaders, stickyHeader=stickyHeader,maxHeight=maxHeight,minHeight=minHeight,
+                 paginationLabel=pagination_label, showLastButtonPagination=skiplast, showFirstButtonPagination=skipfirst, theme="streamlit")
 
 st.divider()
 

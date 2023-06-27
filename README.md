@@ -49,10 +49,15 @@ Keep that in mind if users can directly influence the content of the table.
 
 - **df**: The dataframe to be shown in the table.
 - **enablePagination**: If True, pagination is enabled. Default: True
+- **paginationLabel**:  Label of the pagination. Default: "Rows per page:"
+- **showLastButtonPagination**: If True, the last button is shown in the pagination (skip to last page). Default: True
+- **showFirstButtonPagination**: If True, the first button is shown in the pagination (skip to first page). Default: True
 - **customCss**: Custom CSS to be applied to the table. Can just be a string like  `.MuiTableCell-root {color:red;}`  Default: "". The text will be rendered in `<style>` tags above the component.
 - **paginationSizes**: List of integers that define the number of rows per page. Default: [5,10,25] - The first number defined the amount of rows that will be displayed when the table first renders
 - **size**: Size of the table. Can be "small", "medium" or "large". Default: "medium"
 - **padding**: Padding of the table. Can be "normal", "checkbox" or "none". Default: "normal"
+- **minHeight**: Minimun height of the table. Default: None - If the height is not reached, the table will be streched
+- **maxHeight**: Maximum height of the table. Default: None - If the height is exceeded, the table will be scrollable
 - **showHeaders**: If True, the headers of the table are shown. Default: True
 - **key**: Key of the component. Default: "mui_table"
 - **stickyHeader**: If True, the header of the table is sticky. Default: True
