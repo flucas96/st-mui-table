@@ -1,6 +1,6 @@
-# 
-
 # Streamlit MUI Table
+
+<a href="https://buymeacoffee.com/flucas" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 This is a Streamlit custom component that brings Material UI Table component to your Streamlit apps. It allows to show a simple table in the MUI style. There are some parameters that can be used to customize the table. However, by no means this component is a full implementation of the MUI Table component. It is just a simple table that can be used to show data in a nice way. The most advanced features is that "detailColumns" can be defined that are shown when a row gest "expanded". 
 
