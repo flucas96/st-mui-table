@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setuptools.setup(
     name="st_mui_table",
-    version="0.0.4",
+    version="0.0.6",
     author="",
     author_email="",
     setup_requires=['wheel'],

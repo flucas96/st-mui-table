@@ -102,17 +102,9 @@ with col_right:
         skiplast = st.checkbox("**Skip to last Page Button**", value=True)
     pagination_label = st.text_input("**Pagination Label**", value="Rows per page",disabled= not pagination)
     minHeight = st.number_input("**Min Height**", value=200)
-    max_heigth = st.number_input("**Max Height**", value=400, disabled=pagination)
-    themes = st.selectbox("**Theme**", ["", "streamlit"], index=0)
-    if pagination:
-        maxHeight = None
-    else:
-        maxHeight = max_heigth
+    maxHeight = st.number_input("**Max Height**", value=400)
 
-    if themes == "":
-        theme = {}
-    else:
-        theme = "streamlit"
+
 
     size = st.selectbox("**Size**", ["small", "medium"], index=1)
     padding = st.selectbox("**Padding**", ["normal", "checkbox", "none"], index=0)
@@ -121,12 +113,12 @@ with col_right:
 
     st.code(f"""
     st_mui_table(df2,key="table3", enablePagination={pagination}, size={size}, padding={padding}, showHeaders={showHeaders}, stickyHeader={stickyHeader}, maxHeight={maxHeight},
-                 minHeight={minHeight}, paginationLabel={pagination_label}, showLastButtonPagination={skiplast}, showFirstButtonPagination={skipfirst}, theme={theme})
+                 minHeight={minHeight}, paginationLabel={pagination_label}, showLastButtonPagination={skiplast}, showFirstButtonPagination={skipfirst})
     """, language="python")
 
 with col_left:
     st_mui_table(df2,key="table3", enablePagination=pagination, size=size, padding=padding, showHeaders=showHeaders, stickyHeader=stickyHeader,maxHeight=maxHeight,minHeight=minHeight,
-                 paginationLabel=pagination_label, showLastButtonPagination=skiplast, showFirstButtonPagination=skipfirst, theme="streamlit")
+                 paginationLabel=pagination_label, showLastButtonPagination=skiplast, showFirstButtonPagination=skipfirst)
 
 st.divider()
 
@@ -181,3 +173,41 @@ with col_right:
 
 with col_left:
     st_mui_table(df2,key="table5", customCss=customCss, paperStyle=paperCSS)
+
+
+st.divider()
+
+st.title('Displaying Images & Sorting')
+
+st.write("You can display images in the table")
+
+col_left, col_right = st.columns((1,1))
+
+with col_right:
+    st.write("You can enable sorting by columns:")
+    sorting = st.checkbox("**Enable Sorting**", value=False)
+    df2["Product Image"] = """<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/220px-Kittyply_edit1.jpg" height="100px" alt="Cat!" />"""
+
+    st.write("We can add images by adding a column with the HTML code for the image:")
+    st.code("""df2["Product Image"] = "<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/220px-Kittyply_edit1.jpg" height="100px" alt="Cat!" />""")
+
+with col_left:
+    st_mui_table(df2,key="table6", detailColumns=detailColumns, detailColNum=detailColNum, detailsHeader=detailsHeader, enable_sorting=sorting)
+
+
+st.divider()
+
+st.title('Enable Selecting')
+
+
+col_left, col_right = st.columns((1,1))
+
+
+
+with col_left:
+    return_value = st_mui_table(df2,key="table7", detailColumns=detailColumns, detailColNum=detailColNum, detailsHeader=detailsHeader, enable_sorting=sorting, return_clicked_cell=True)
+
+    st.write("You can get the value of the clicked cell:")
+    st.write(return_value)
+
+
