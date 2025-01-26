@@ -1,68 +1,121 @@
-# 
-
 # Streamlit MUI Table
 
-This is a Streamlit custom component that brings Material UI Table component to your Streamlit apps. It allows to show a simple table in the MUI style. There are some parameters that can be used to customize the table. However, by no means this component is a full implementation of the MUI Table component. It is just a simple table that can be used to show data in a nice way. The most advanced features is that "detailColumns" can be defined that are shown when a row gest "expanded". 
+The **Streamlit MUI Table** component brings the Material UI Table to Streamlit applications. It allows for displaying tables with features such as pagination, expandable rows, and customizable styles. A key feature is the ability to render HTML within the table cells, providing flexibility for displaying styled content. The component also supports row selection.
 
-Check out the [live demo](https://st-mui-table.streamlit.app/)!
+---
 
 ## Installation
 
-To install st_mui_table, you can use pip:
+Install the component using pip:
 
-````
+```bash
 pip install st_mui_table
-````
+```
+
+---
 
 ## Usage
 
-To use the sst_mui_table component, you just need to import it in your Streamlit script and call it like any other Streamlit function:
+To use the `st_mui_table` component, import it into your Streamlit script and call it like any other Streamlit function:
 
-```` python
+```python
 from st_mui_table import st_mui_table
-````
-```` python
+
+# Example usage
 st_mui_table(
     df,
     enablePagination=True,
     customCss="",
-    paginationSizes = [5,10,25],
+    paginationSizes=[5, 10, 25],
     size="medium",
     padding="normal",
     showHeaders=True,
     key="mui_table",
     stickyHeader=True,
-    paperStyle={ "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid rgba(224, 224, 224, 1)'},
+    paperStyle={
+        "width": '100%',
+        "overflow": 'hidden',
+        "paddingBottom": '1px',
+        "border": '2px solid rgba(224, 224, 224, 1)'
+    },
     detailColumns=[],
     detailColNum=1,
     detailsHeader="Details",
     showIndex=False
-    
 )
-````
+```
 
-## Note worthy
-All HTML content will be correctly interpreted and rendered! Meaning if there is something like `<b>bold</b>` in the dataframe, it will be rendered as bold text. 
-Keep that in mind if users can directly influence the content of the table.
+---
+
+## Features
+
+### Render HTML in Table Cells
+The table supports rendering HTML directly within cells. For example, if a cell contains `<b>bold</b>`, the text will be rendered as bold. This feature provides significant flexibility but requires caution if users can influence table content.
+
+### Expandable Rows
+You can define specific columns (`detailColumns`) that are hidden from the main table but displayed in an expandable section when a row is expanded. The layout of this section is configurable using `detailColNum`.
+
+### Row Selection
+The table supports row selection, allowing users to interact with specific rows.
+
+---
 
 ## Parameters
 
-- **df**: The dataframe to be shown in the table.
-- **enablePagination**: If True, pagination is enabled. Default: True
-- **paginationLabel**:  Label of the pagination. Default: "Rows per page:"
-- **showLastButtonPagination**: If True, the last button is shown in the pagination (skip to last page). Default: True
-- **showFirstButtonPagination**: If True, the first button is shown in the pagination (skip to first page). Default: True
-- **customCss**: Custom CSS to be applied to the table. Can just be a string like  `.MuiTableCell-root {color:red;}`  Default: "". The text will be rendered in `<style>` tags above the component.
-- **paginationSizes**: List of integers that define the number of rows per page. Default: [5,10,25] - The first number defined the amount of rows that will be displayed when the table first renders
-- **size**: Size of the table. Can be "small", "medium" or "large". Default: "medium"
-- **padding**: Padding of the table. Can be "normal", "checkbox" or "none". Default: "normal"
-- **minHeight**: Minimun height of the table. Default: None - If the height is not reached, the table will be streched
-- **maxHeight**: Maximum height of the table. Default: None - If the height is exceeded, the table will be scrollable
-- **showHeaders**: If True, the headers of the table are shown. Default: True
-- **key**: Key of the component. Default: "mui_table"
-- **stickyHeader**: If True, the header of the table is sticky. Default: True
-- **paperStyle**: Dictionary with the style of paper on which the table is on. Default: { "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid rgba(224, 224, 224, 1)'}
-- **detailColumns**: List of columns that will be shown when a row is expanded. Default: [] - All Column in this list will not be displayed in the "normal" table anymore.
-- **detailColNum**: Structure of the columns in the details seciont. If 1 all details will be shown beneath each other. If 2, the details will be shown in two columns. If the 3 details will be shown in three columns. Default: 1...
-- **detailsHeader**: Header of the details section. Default: "Details"
-- **showIndex**: If True, the index of the dataframe should be shown. Default: False
+- **`df`**: The DataFrame to display in the table.
+- **`enablePagination`** (bool): Enables pagination. Default: `True`.
+- **`paginationLabel`** (str): Label for pagination. Default: "Rows per page".
+- **`showFirstButtonPagination`** (bool): Show the "first page" button in pagination. Default: `True`.
+- **`showLastButtonPagination`** (bool): Show the "last page" button in pagination. Default: `True`.
+- **`customCss`** (str): Custom CSS for styling the table. Example: `.MuiTableCell-root {color:red;}`. Default: `""`.
+- **`paginationSizes`** (list): Defines the number of rows per page options. Default: `[5, 10, 25]`.
+- **`size`** (str): Table cell size. Options: `"small"`, `"medium"`. Default: `"medium"`.
+- **`padding`** (str): Table cell padding. Options: `"normal"`, `"checkbox"`, `"none"`. Default: `"normal"`.
+- **`minHeight`** (int): Minimum height of the table. Default: `None`.
+- **`maxHeight`** (int): Maximum height of the table. Default: `None`.
+- **`showHeaders`** (bool): Show column headers. Default: `True`.
+- **`key`** (str): Unique key for the table instance. Default: `"mui_table"`.
+- **`stickyHeader`** (bool): Make the table header sticky. Default: `True`.
+- **`paperStyle`** (dict): Custom styles for the table container. Default: `{ "width": '100%', "overflow": 'hidden', "paddingBottom": '1px', "border": '2px solid rgba(224, 224, 224, 1)' }`.
+- **`detailColumns`** (list): Columns to display in the expandable row section. Default: `[]`.
+- **`detailColNum`** (int): Number of columns in the expandable section. Options: `1`, `2`, `3`. Default: `1`.
+- **`detailsHeader`** (str): Header text for the expandable section. Default: `"Details"`.
+- **`showIndex`** (bool): Show the DataFrame index as a separate column. Default: `False`.
+- **`enable_sorting`** (bool): Enable sorting on table columns. Default: `False`.
+- **`return_clicked_cell`** (bool): Return data about the clicked cell (row, column, and content). Default: `False`.
+
+---
+
+## Example: Expandable Rows
+
+```python
+from st_mui_table import st_mui_table
+import pandas as pd
+
+# Sample DataFrame
+data = {
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "Details": ["<b>Alice's details</b>", "<b>Bob's details</b>", "<b>Charlie's details</b>"]
+}
+df = pd.DataFrame(data)
+
+# Define detailColumns
+st_mui_table(
+    df,
+    detailColumns=["Details"],
+    detailColNum=1,
+    detailsHeader="User Details",
+    enablePagination=True,
+    showIndex=True
+)
+```
+
+---
+
+## Notes
+
+- **HTML Rendering**: Ensure proper validation of any HTML content in the DataFrame to avoid unexpected behavior or vulnerabilities.
+- **Pagination**: The first value in `paginationSizes` defines the default rows per page.
+
+This component simplifies table creation in Streamlit, enabling rich features and customization with minimal effort.
