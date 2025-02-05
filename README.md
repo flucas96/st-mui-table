@@ -2,6 +2,10 @@
 
 The **Streamlit MUI Table** component brings the Material UI Table to Streamlit applications. It allows for displaying tables with features such as pagination, expandable rows, and customizable styles. A key feature is the ability to render HTML within the table cells, providing flexibility for displaying styled content. The component also supports row selection.
 
+<a href="https://flucas-component-overview.streamlit.app/?preselect=4" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Streamlit-red?style=for-the-badge&logo=streamlit" alt="Live Demo">
+</a>
+
 ---
 
 ## Installation
