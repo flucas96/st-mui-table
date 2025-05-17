@@ -1,1 +1,9 @@
+# Excluir tudo da raiz do projeto
+global-exclude *
+
+# Incluir arquivos específicos da raiz
+include README.md LICENSE
+
+# Incluir apenas conteúdo abaixo de st_mui_table/
 recursive-include st_mui_table/frontend/build *
+include st_mui_table/__init__.py

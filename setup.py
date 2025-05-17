@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setuptools.setup(
     name="st_mui_table",
-    version="0.0.6",
+    version="0.1.3",
     author="",
     author_email="",
     setup_requires=['wheel'],
@@ -25,4 +25,4 @@ setuptools.setup(
         "streamlit >= 0.63",
     ],
 )
-
+    

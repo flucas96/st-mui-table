@@ -5,6 +5,7 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import * as MuiIcons from '@mui/icons-material';
 
 
 
@@ -25,15 +26,15 @@ function chunkArray<T>(originalArray: T[], chunkSize: number): T[][] {
 const TableComponent = (props: ComponentProps) => {
 
   const { content, customCss, enablePagination, size, padding, showHeaders, paginationSizes, stickyHeader, paperStyle, detailColumns,detailColNum,
-    detailsHeader,showIndex, maxHeight,minHeight, paginationLabel, showFirstButtonPagination, showLastButtonPagination, enable_sorting, selected_row_css   } = props.args;  // Python Args
+    detailsHeader,showIndex, maxHeight,minHeight, paginationLabel, showFirstButtonPagination, showLastButtonPagination, enableSorting, selected_row_css   } = props.args;  // Python Args
 
   const [state, setState] = React.useState<TableState>({
     page: 0,
     rowsPerPage: paginationSizes[0],  // Set the default rowsPerPage to the first value in the list of options
   })
 
-  const [sortOrder, setSortOrder] = React.useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = React.useState<string | null>(null);
+  const [sortOrder, setOrderByDirection] = React.useState<"asc" | "desc">("asc");
+  const [orderBy, setColumnToOrderBy] = React.useState<string | null>(null);
 
   // State to track the selected row
   const [selectedRow, setSelectedRow] = React.useState<number | null>(null);
@@ -41,8 +42,8 @@ const TableComponent = (props: ComponentProps) => {
 
   const handleSortRequest = (property: string) => {
     const isAsc = orderBy === property && sortOrder === "asc";
-    setSortOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
+    setOrderByDirection(isAsc ? "desc" : "asc");
+    setColumnToOrderBy(property);
   };
 
   const handleCellClick = (rowIndex: number, columnName: string, cellData: any) => {
@@ -63,7 +64,7 @@ const TableComponent = (props: ComponentProps) => {
   
 
   const sortedContent = React.useMemo(() => {
-    if (enable_sorting && orderBy) { // Only sort if enable_sorting is true and orderBy is not null
+    if (enableSorting && orderBy) { // Only sort if enableSorting is true and orderBy is not null
       const comparator = (a: any, b: any) => {
         if (a[orderBy] < b[orderBy]) {
           return -1;
@@ -76,8 +77,8 @@ const TableComponent = (props: ComponentProps) => {
   
       return [...content].sort((a, b) => (sortOrder === "asc" ? comparator(a, b) : -comparator(a, b)));
     }
-    return content; // If enable_sorting is false or orderBy is null, return the original content
-  }, [content, orderBy, sortOrder, enable_sorting]);
+    return content; // If enableSorting is false or orderBy is null, return the original content
+  }, [content, orderBy, sortOrder, enableSorting]);
   
   
 
@@ -105,7 +106,7 @@ const TableComponent = (props: ComponentProps) => {
 
 const startRow = state.page * state.rowsPerPage;
 const endRow = startRow + state.rowsPerPage;
-const currentPageContent = content.slice(startRow, endRow);
+const currentPageContent = sortedContent.slice(startRow, endRow);
 
 const [shouldUpdateHeight, setShouldUpdateHeight] = React.useState(false);
 
@@ -160,7 +161,21 @@ return (
               {showIndex && <TableCell></TableCell>}
               {detailColumns.length > 0 && <TableCell></TableCell>}
               {content[0] && Object.keys(content[0]).filter((header) => !detailColumns.includes(header)).map((header, i) => (
-                <TableCell key={i} padding={padding} dangerouslySetInnerHTML={{__html: String(header)}}></TableCell>
+                <TableCell key={i} padding={padding}>
+                  {enableSorting ? (
+                    // Render TableSortLabel if enableSorting is true
+                    <TableSortLabel
+                      active={orderBy === header}
+                      direction={orderBy === header ? sortOrder : "asc"}
+                      onClick={() => handleSortRequest(header)}
+                    >
+                      <span dangerouslySetInnerHTML={{ __html: String(header) }} />
+                    </TableSortLabel>
+                  ) : (
+                    // Render plain header if enableSorting is false
+                    <span dangerouslySetInnerHTML={{ __html: String(header) }} />
+                  )}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>

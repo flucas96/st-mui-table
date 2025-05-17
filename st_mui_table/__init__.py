@@ -14,10 +14,15 @@ else:
     build_dir = os.path.join(parent_dir, "frontend/build")
     _component_func = components.declare_component("st_mui_table", path=build_dir)
 
-def st_mui_table(df, enablePagination:bool=True, customCss:str="", paginationSizes:list = [5,10,25], size:str="medium", padding:str="normal", showHeaders:bool=True,
-                 key:str="mui_table", stickyHeader:bool=True, paperStyle:dict={ "width": '100%',  "overflow": 'hidden',"paddingBottom": '1px', "border": '2px solid rgba(224, 224, 224, 1)'}, 
-                 detailColumns:list=[], detailColNum:int=1, detailsHeader:str="Details",showIndex: bool=False, maxHeight: int=None, minHeight: int=None,paginationLabel:str="Rows per page",
-                 showLastButtonPagination:bool=True, showFirstButtonPagination:bool=True,enable_sorting:bool = False, return_clicked_cell:bool = False, default_value = None, selected_row_css = """.selected-row {background-color: #b3d4fc !important;}"""):
+
+def st_mui_table(df, enablePagination: bool = True, customCss: str = "", paginationSizes: list = [5, 10, 25],
+                 size: str = "medium", padding: str = "normal", showHeaders: bool = True, key: str = "mui_table",
+                 stickyHeader: bool = True, paperStyle: dict = {"width": '100%', "overflow": 'hidden', "paddingBottom": 
+                 '1px', "border": '2px solid rgba(224, 224, 224, 1)'}, detailColumns: list = [], detailColNum: int = 1, 
+                 detailsHeader: str = "Details", showIndex: bool = False, maxHeight: int = None, minHeight: int = None, 
+                 paginationLabel: str = "Rows per page", showLastButtonPagination: bool = True,
+                 showFirstButtonPagination: bool = True, enableSorting: bool = False, return_clicked_cell: bool = False,
+                 default_value=None, selected_row_css=""".selected-row {background-color: #b3d4fc !important;}"""):
     """
     Parameters
     ----------
@@ -58,7 +63,7 @@ def st_mui_table(df, enablePagination:bool=True, customCss:str="", paginationSiz
                                       key=key, customCss=customCss, paginationSizes=paginationSizes, stickyHeader=stickyHeader, paperStyle=paperStyle,
                                       detailColumns=detailColumns,detailColNum=detailColNum,detailsHeader=detailsHeader,showIndex=showIndex,maxHeight = maxHeight,
                                       minHeight = minHeight,paginationLabel=paginationLabel, showLastButtonPagination=showLastButtonPagination, showFirstButtonPagination=showFirstButtonPagination,
-                                        enable_sorting=enable_sorting, return_clicked_cell=return_clicked_cell, default_value=default_value, selected_row_css = selected_row_css)
+                                        enableSorting=enableSorting, return_clicked_cell=return_clicked_cell, default_value=default_value, selected_row_css = selected_row_css)
 
     if return_clicked_cell:
         return return_value                   
